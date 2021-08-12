@@ -19,7 +19,7 @@ export default function Main() {
   }, [game])
 
   useEffect(() => {
-    if (score.current === 6) setGame('won')
+    if (score.current === 12) setGame('won')
   }, [score])
 
   const startGame = () => {
