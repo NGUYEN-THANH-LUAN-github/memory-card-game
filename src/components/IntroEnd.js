@@ -1,13 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function IntroEnd({
-  game,
-  score,
-  startGame,
-  replay,
-  returnToMain,
-}) {
+export default function IntroEnd({ game, score, startGame, returnToMain }) {
   let heading,
     info,
     button = ''
@@ -25,7 +19,10 @@ export default function IntroEnd({
             3. Choose another card, but you must not choose the card that has
             already been chosen
           </li>
-          <li>4. You win the game if you manage to click on each card once</li>
+          <li>
+            4. You win the game if you manage to click on each card once in{' '}
+            <strong>25 seconds</strong>
+          </li>
         </ul>
       </div>
     )
@@ -43,7 +40,7 @@ export default function IntroEnd({
       )
       button = (
         <div>
-          <button onClick={replay}>Play Again!</button>
+          <button onClick={startGame}>Play Again!</button>
           <button onClick={returnToMain}>Quit</button>
         </div>
       )

@@ -9,12 +9,21 @@ export default function Main() {
   const [charList, setCharList] = useState([])
   const [game, setGame] = useState('intro')
   const [score, setScore] = useState({ current: 0, best: 0 })
+  const [countdown, setCountDown] = useState(25)
 
   useEffect(() => {
+    let countdownID
     if (game === 'playing') {
       ;(async () => {
         setCharList(await getRndChars())
       })()
+      countdownID = setInterval(() => {
+        setCountDown(countdown => countdown - 1)
+      }, 1000)
+    }
+    return () => {
+      setCharList([])
+      clearInterval(countdownID)
     }
   }, [game])
 
@@ -22,10 +31,14 @@ export default function Main() {
     if (score.current === 12) setGame('won')
   }, [score])
 
-  const startGame = () => {
-    setGame('playing')
-    setScore({ ...score, current: 0 })
-  }
+  useEffect(() => {
+    if (countdown < 0) {
+      setGame('lost')
+      setScore(score =>
+        score.best < score.current ? { ...score, best: score.current } : score
+      )
+    }
+  }, [countdown])
 
   const shuffleCards = () => {
     const shuffled = [...charList]
@@ -45,15 +58,18 @@ export default function Main() {
       return
     } else {
       setGame('lost')
-      if (score.best < score.current) {
-        setScore({ ...score, best: score.current })
-      }
+      setScore(score =>
+        score.best < score.current ? { ...score, best: score.current } : score
+      )
     }
   }
 
-  const replay = () => {
-    setScore({ ...score, current: 0 })
+  const startGame = () => {
+    if (game === 'lost') {
+      setScore({ ...score, current: 0 })
+    }
     setGame('playing')
+    setCountDown(25)
   }
 
   const returnToMain = () => {
@@ -68,13 +84,13 @@ export default function Main() {
           charList={charList}
           score={score}
           toggleClicked={toggleClicked}
+          countdown={countdown}
         />
       ) : (
         <IntroEnd
           game={game}
           score={score}
           startGame={startGame}
-          replay={replay}
           returnToMain={returnToMain}
         />
       )}

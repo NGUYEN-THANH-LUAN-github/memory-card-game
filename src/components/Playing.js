@@ -2,38 +2,37 @@ import React from 'react'
 import CardList from './CardList'
 import styled from 'styled-components'
 
-export default function Playing({
-  charList,
-  score,
-  toggleClicked,
-}) {
+export default function Playing({ charList, score, toggleClicked, countdown }) {
   return (
     <Wrapper>
-      <h1>
-        <span className='current'>Score: {score.current}</span>/
-        <span className='best'>Best: {score.best}</span>
-      </h1>
-      <CardList
-        charList={charList}
-        toggleClicked={toggleClicked}
-      />
+      <div className='info'>
+        <span>
+          Score: {score.current}/ Best: {score.best}
+        </span>
+        <span>
+          <i className='fas fa-stopwatch'></i> {countdown}s
+        </span>
+      </div>
+      <CardList charList={charList} toggleClicked={toggleClicked} />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  h1 {
+  .info {
     color: white;
+    padding-block: 2rem;
+    font-size: 2em;
+    font-weight: bolder;
     text-align: center;
-    padding-block: 3rem;
     @media (max-width: 530px) {
       font-size: 1.4em;
     }
-    .current {
-      margin-right: 1.5rem;
-    }
-    .best {
-      margin-left: 1.5rem;
+    span {
+      display: block;
+      &:first-of-type {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 `
