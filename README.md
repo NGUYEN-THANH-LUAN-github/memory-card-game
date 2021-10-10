@@ -1,6 +1,6 @@
 # 🌱 Breaking Bad characters memory card game
 
-a project from The Odin Project
+a React project from The Odin Project
 
 👉 [Live Demo](https://thanh-luan-nguyen.github.io/memory-card-game/)
 
