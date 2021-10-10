@@ -1,4 +1,4 @@
-# 🌱 breaking-bad-memory-card-game
+# 🌱 Breaking Bad characters memory card game
 
 a project from The Odin Project
 
